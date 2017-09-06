@@ -9,7 +9,9 @@ export host='$host' remote_addr='$remote_addr' proxy_add_x_forwarded_for='$proxy
 
 envsubst < /nginx.conf.template > /etc/nginx/nginx.conf
 
-/add_self_signed_certs.sh
+if [[ ! ${CUSTOM_CERTS} ]]; then
+  /add_self_signed_certs.sh
+fi
 
 # Use exec so nginx can get signals directly
 exec nginx

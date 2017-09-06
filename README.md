@@ -11,12 +11,22 @@ The following environment variables configure nginx:
 - ``TARGET_PORT``: target port for the reverse proxy (default value: ``80``)
 - ``TARGET_HOST``: target host for the reverse proxy (default value: ``proxyapp``)
 - ``CLIENT_MAX_BODY_SIZE``: maximum size of client uploads (default value: ``20M``)
+- ``CUSTOM_CERTS``: if defined, nginx will expect cert and key in /etc/nginx/certs/
 
 ## Certificates and CA location
 
 The SSL certificate is generated using a own-ROOT-ca that is available in the
 directory ``/etc/nginx/ca``, you may use Docker volumes to share the CAs with
 other containers, so they can trust the installed certificate.
+
+## Custom certs
+Example using custom certs.
+/home/test/certs should have files ``cert.pem`` and ``key.pem``.
+```
+docker run -d -e "CUSTOM_CERTS=1" -e "TARGET_PORT=6010" -e "TARGET_HOST=172.17.0.1" -v "/home/test/certs/:/etc/nginx/certs/" -p 443:443 fsouza/docker-ssl-proxy
+```
+
+Be careful with your certs. If you mount the path but don't define CUSTOM_CERTS nginx will overwrite them!
 
 ## Docker Hub Image
 
