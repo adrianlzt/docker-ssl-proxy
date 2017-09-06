@@ -23,7 +23,7 @@ other containers, so they can trust the installed certificate.
 Example using custom certs.
 /home/test/certs should have files ``cert.pem`` and ``key.pem``.
 ```
-docker run -d -e "CUSTOM_CERTS=1" -e "TARGET_PORT=6010" -e "TARGET_HOST=172.17.0.1" -v "/home/test/certs/:/etc/nginx/certs/" -p 443:443 fsouza/docker-ssl-proxy
+docker run -d -e "CUSTOM_CERTS=1" -e "TARGET_PORT=6010" -e "TARGET_HOST=172.17.0.1" -v "/home/test/certs/:/etc/nginx/certs/" -p 443:443 adrianlzt/docker-ssl-proxy
 ```
 
 Be careful with your certs. If you mount the path but don't define CUSTOM_CERTS nginx will overwrite them!
